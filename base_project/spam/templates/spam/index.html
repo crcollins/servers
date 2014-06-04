@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="." method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+</form>
+
+{% for spam in objects %}
+<div>
+	<h1>{{ spam.id }}. {{ spam.name }}</h1>
+	<p>{{ spam.text }}</p>
+</div>
+{% endfor %}
+{% endblock %}
