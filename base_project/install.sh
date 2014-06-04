@@ -6,7 +6,8 @@ export PIP_DEFAULT_TIMEOUT=600
 
 dependencies() {
     sudo apt-get update
-    sudo apt-get install -y git python2.7 python-pip supervisor nginx
+    sudo apt-get install -y git python2.7 python-pip supervisor\
+                            nginx libpq-dev python-dev
     sudo pip install virtualenv
 }
 
