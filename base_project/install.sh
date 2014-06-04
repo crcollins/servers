@@ -38,14 +38,6 @@ setup_nginx() {
     sudo supervisorctl reread
     sudo supervisorctl update
     sudo service nginx restart
-}
-
-update() {
-    cd $PROJECT_DIR
-    . bin/activate
-    git pull
-    pip install -r requirements.txt
-    python manage.py syncdb --noinput
     sudo supervisorctl restart base_project
 }
 
