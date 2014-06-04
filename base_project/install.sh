@@ -15,8 +15,7 @@ install_base_project() {
     virtualenv .
     . bin/activate
 
-    pip install gunicorn
-    pip install Django==1.4.11
+    pip install -r requirements.txt
     python manage.py syncdb --noinput
 }
 
