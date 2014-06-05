@@ -6,4 +6,5 @@ admin.autodiscover()
 urlpatterns = patterns('spam.views',
     url(r'^$', "index", name="index"),
     url(r'^info/$', "info", name="info"),
+    url(r'^lorem/$', "lorem", name="lorem"),
 )

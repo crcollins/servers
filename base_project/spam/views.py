@@ -36,3 +36,6 @@ def info(request):
         })
     return render(request, "spam/info.html", c)
 
+
+def lorem(request):
+    return render(request, "spam/lorem.html")
