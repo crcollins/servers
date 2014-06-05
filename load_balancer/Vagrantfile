@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+$setup_script = <<SCRIPT
+#!/usr/bin/env bash
+
+cp -r /tmp/base_project .
+cd base_project
+
+sed -i base_project/settings.py -e "s/'HOST': 'localhost'/'HOST': '192.168.1.100'/"
+
+source install.sh
+SCRIPT
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  numNodes = ENV["NODES"].to_i
+
+  config.vm.define "load" do |load|
+    load.vm.box = "precise32"
+    load.vm.network :private_network, ip: "192.168.1.99"
+    load.vm.network :forwarded_port, host: 4567, guest: 80
+    load.vm.provision :shell, :path => "../install_load.sh", :args => "'%d'" % (numNodes+100)
+  end
+
+  config.vm.define "db" do |db|
+    db.vm.box = "precise32"
+    db.vm.provision :shell, :path => "../install_database.sh", :privileged => false
+    db.vm.network :private_network, ip: "192.168.1.100"
+  end
+
+  1.upto(numNodes) do |num|
+    hostname = "node" + num.to_s
+    nodeName = hostname.to_sym
+    val = num + 100
+    config.vm.define nodeName do |node|
+      node.vm.box = "precise32"
+      node.vm.network :private_network, ip: "192.168.1." + val.to_s
+      node.vm.hostname = hostname
+      node.vm.synced_folder "../base_project", "/tmp/base_project"
+      node.vm.provision :shell, :inline => $setup_script, :privileged => false
+    end
+  end
+end
