@@ -11,5 +11,5 @@ EOF
 sudo apt-get install -y postgresql
 
 sudo -u postgres createdb mydb
-sudo -u postgres createuser myuser -ws
-sudo -u postgres psql -U postgres -d postgres -c "alter user myuser with password 'vagrant';"
+sudo -u postgres createuser vagrant -ws
+sudo -u postgres psql -U postgres -d postgres -c "alter user vagrant with password 'vagrant';"
