@@ -9,7 +9,16 @@ $setup_script = <<SCRIPT
 cp -r /tmp/base_project .
 cd base_project
 
-sed -i base_project/settings.py -e "s/'HOST': 'localhost'/'HOST': '192.168.2.100'/"
+cat >> base_project/settings.py <<EOF
+DATABASES['default'] = {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'mydb',
+    'USER': 'vagrant',
+    'PASSWORD': 'vagrant',
+    'HOST': '192.168.2.100',
+    'PORT': '',
+}
+EOF
 
 source install.sh
 SCRIPT

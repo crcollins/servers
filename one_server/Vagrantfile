@@ -3,11 +3,33 @@
 
 VAGRANTFILE_API_VERSION = "2"
 
+
+$setup_script = <<SCRIPT
+#!/usr/bin/env bash
+
+cp -r /tmp/base_project .
+cd base_project
+
+cat >> base_project/settings.py <<EOF
+DATABASES['default'] = {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'mydb',
+    'USER': 'vagrant',
+    'PASSWORD': 'vagrant',
+    'HOST': 'localhost',
+    'PORT': '',
+}
+EOF
+
+source install.sh
+SCRIPT
+
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise32"
   config.vm.synced_folder "../base_project", "/tmp/base_project"
   config.vm.provision :shell, :path => "../install_database.sh", :privileged => false
-  config.vm.provision :shell, :path => "../install_app.sh", :privileged => false
+  config.vm.provision :shell, :inline => $setup_script, :privileged => false
   config.vm.network :forwarded_port, host: 4567, guest: 80
 end
 

@@ -143,13 +143,4 @@ LOGGING = {
 
 DATABASE_ROUTERS = ['base_project.db.Router']
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
-        'USER': 'vagrant',
-        'PASSWORD': 'vagrant',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
+DATABASES = {}
