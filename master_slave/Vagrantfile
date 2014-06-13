@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+$setup_script = <<SCRIPT
+#!/usr/bin/env bash
+
+cp -r /tmp/base_project .
+cd base_project
+
+cat > base_project/settings.py <<EOF
+DATABASES['master'] = {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'mydb',
+    'USER': 'vagrant',
+    'PASSWORD': 'vagrant',
+    'HOST': '192.168.2.200',
+    'PORT': '',
+}
+EOF
+
+source install.sh
+SCRIPT
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  numSlaves = ENV["SLAVES"].to_i
+
+  config.vm.define "master" do |master|
+    master.vm.box = "precise32"
+    master.vm.network :private_network, ip: "192.168.2.200"
+    master.vm.hostname = "master"
+    master.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => "'master'"
+  end
+
+  1.upto(numSlaves) do |num|
+    hostname = "slave" + num.to_s
+    slaveName = hostname.to_sym
+    val = num + 200
+    config.vm.define slaveName do |slave|
+      slave.vm.box = "precise32"
+      slave.vm.network :private_network, ip: "192.168.2." + val.to_s
+      slave.vm.hostname = hostname
+      slave.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => "'slave'"
+    end
+  end
+end
