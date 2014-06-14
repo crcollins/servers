@@ -1,0 +1,46 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+$setup_script = <<SCRIPT
+#!/usr/bin/env bash
+
+cp -r /tmp/base_project .
+cd base_project
+
+cat >> base_project/settings.py <<EOF
+DATABASES['default'] = {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'mydb',
+    'USER': 'vagrant',
+    'PASSWORD': 'vagrant',
+    'HOST': '192.168.2.100',
+    'PORT': '',
+}
+EOF
+
+source install.sh
+SCRIPT
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.define "cache" do |cache|
+    cache.vm.box = "precise32"
+    cache.vm.network :private_network, ip: "192.168.2.99"
+    cache.vm.network :forwarded_port, host: 4567, guest: 80
+    cache.vm.provision :shell, :path => "../install_cache.sh"
+  end
+
+  config.vm.define "db" do |db|
+    db.vm.box = "precise32"
+    db.vm.provision :shell, :path => "../install_database.sh", :privileged => false
+    db.vm.network :private_network, ip: "192.168.2.100"
+  end
+
+  config.vm.define "app", primary: true do |app|
+    app.vm.box = "precise32"
+    app.vm.synced_folder "../base_project", "/tmp/base_project"
+    app.vm.provision :shell, :inline => $setup_script, :privileged => false
+    app.vm.network :private_network, ip: "192.168.2.101"
+  end
+end
