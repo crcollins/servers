@@ -33,6 +33,8 @@ def info(request):
     c = Context({
         "hostname": socket.gethostname(),
         "ip": get_client_ip(request),
+        "read_db": Spam.objects.db,
+        "write_db": Spam(name='', text='')._default_manager.db,
         })
     return render(request, "spam/info.html", c)
 
