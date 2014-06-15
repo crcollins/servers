@@ -1,0 +1,213 @@
+load_balancer (NODES=2)
+=======================
+
+Document Path:          /
+Document Length:        552 bytes
+
+Concurrency Level:      20
+Time taken for tests:   60.467 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      824000 bytes
+HTML transferred:       552000 bytes
+Requests per second:    16.54 [#/sec] (mean)
+Time per request:       1209.332 [ms] (mean)
+Time per request:       60.467 [ms] (mean, across all concurrent requests)
+Transfer rate:          13.31 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:   237 1198 125.8   1199    1412
+Waiting:      237 1198 125.8   1198    1412
+Total:        238 1198 125.7   1199    1412
+
+Percentage of the requests served within a certain time (ms)
+  50%   1199
+  66%   1260
+  75%   1297
+  80%   1311
+  90%   1344
+  95%   1366
+  98%   1390
+  99%   1400
+ 100%   1412 (longest request)
+
+
+
+Document Path:          /info/
+Document Length:        198 bytes
+
+Concurrency Level:      20
+Time taken for tests:   3.253 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      335000 bytes
+HTML transferred:       198000 bytes
+Requests per second:    307.38 [#/sec] (mean)
+Time per request:       65.067 [ms] (mean)
+Time per request:       3.253 [ms] (mean, across all concurrent requests)
+Transfer rate:          100.56 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       2
+Processing:    18   64  16.1     63     101
+Waiting:       18   64  16.1     63     101
+Total:         20   64  16.0     63     101
+
+Percentage of the requests served within a certain time (ms)
+  50%     63
+  66%     71
+  75%     75
+  80%     78
+  90%     87
+  95%     93
+  98%     96
+  99%     97
+ 100%    101 (longest request)
+
+
+
+Document Path:          /lorem/
+Document Length:        1958 bytes
+
+Concurrency Level:      20
+Time taken for tests:   3.066 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      2095000 bytes
+HTML transferred:       1958000 bytes
+Requests per second:    326.13 [#/sec] (mean)
+Time per request:       61.326 [ms] (mean)
+Time per request:       3.066 [ms] (mean, across all concurrent requests)
+Transfer rate:          667.22 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:    15   61  17.5     58     125
+Waiting:       14   60  17.4     58     125
+Total:         15   61  17.5     58     125
+
+Percentage of the requests served within a certain time (ms)
+  50%     58
+  66%     70
+  75%     75
+  80%     76
+  90%     84
+  95%     90
+  98%     97
+  99%    101
+ 100%    125 (longest request)
+
+
+
+load_balancer (NODES=4)
+=======================
+
+Document Path:          /
+Document Length:        552 bytes
+
+Concurrency Level:      20
+Time taken for tests:   58.939 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      824000 bytes
+HTML transferred:       552000 bytes
+Requests per second:    16.97 [#/sec] (mean)
+Time per request:       1178.773 [ms] (mean)
+Time per request:       58.939 [ms] (mean, across all concurrent requests)
+Transfer rate:          13.65 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:   180 1167 502.9   1396    1734
+Waiting:      180 1167 502.9   1396    1734
+Total:        180 1167 502.9   1396    1734
+
+Percentage of the requests served within a certain time (ms)
+  50%   1396
+  66%   1492
+  75%   1523
+  80%   1537
+  90%   1578
+  95%   1623
+  98%   1669
+  99%   1688
+ 100%   1734 (longest request)
+
+
+
+Document Path:          /info/
+Document Length:        198 bytes
+
+Concurrency Level:      20
+Time taken for tests:   2.553 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      335000 bytes
+HTML transferred:       198000 bytes
+Requests per second:    391.65 [#/sec] (mean)
+Time per request:       51.066 [ms] (mean)
+Time per request:       2.553 [ms] (mean, across all concurrent requests)
+Transfer rate:          128.13 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:     7   50  21.1     48     133
+Waiting:        6   50  21.1     47     132
+Total:          7   50  21.1     48     133
+
+Percentage of the requests served within a certain time (ms)
+  50%     48
+  66%     57
+  75%     63
+  80%     67
+  90%     78
+  95%     92
+  98%    105
+  99%    110
+ 100%    133 (longest request)
+
+
+
+Document Path:          /lorem/
+Document Length:        1958 bytes
+
+Concurrency Level:      20
+Time taken for tests:   2.539 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      2095000 bytes
+HTML transferred:       1958000 bytes
+Requests per second:    393.84 [#/sec] (mean)
+Time per request:       50.783 [ms] (mean)
+Time per request:       2.539 [ms] (mean, across all concurrent requests)
+Transfer rate:          805.75 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.2      0       1
+Processing:     9   50  22.2     49     142
+Waiting:        8   49  22.2     47     141
+Total:          9   50  22.2     49     142
+
+Percentage of the requests served within a certain time (ms)
+  50%     49
+  66%     58
+  75%     65
+  80%     69
+  90%     80
+  95%     89
+  98%    103
+  99%    115
+ 100%    142 (longest request)
