@@ -52,7 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     master.vm.box = "precise32"
     master.vm.network :private_network, ip: "192.168.2.200"
     master.vm.hostname = "master"
-    master.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => "'master'"
+    master.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => ["master", numSlaves.to_s]
   end
 
   1.upto(numSlaves) do |num|
@@ -63,7 +63,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       slave.vm.box = "precise32"
       slave.vm.network :private_network, ip: "192.168.2." + val.to_s
       slave.vm.hostname = hostname
-      slave.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => "'slave'"
+      slave.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => ["slave", numSlaves.to_s]
     end
   end
 

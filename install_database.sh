@@ -48,13 +48,17 @@ fi
 
 sudo sed -i -e "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /etc/postgresql/9.1/main/postgresql.conf
 
-sudo tee -a /etc/postgresql/9.1/main/postgresql.conf <<EOF
+if [ "$1" == "master" ] || [ "$1" == "slave" ];
+    then
+    sudo tee -a /etc/postgresql/9.1/main/postgresql.conf <<EOF
 wal_level = 'hot_standby'
 archive_mode = on
 archive_command = 'cd .'
-max_wal_senders = 1
+max_wal_senders = $2
 hot_standby = on
 EOF
+
+fi
 
 sudo /bin/sh -c 'echo "host all all 0.0.0.0/0 md5\nhost all all ::1/0 md5" >> /etc/postgresql/9.1/main/pg_hba.conf'
 
