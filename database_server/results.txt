@@ -1,0 +1,105 @@
+database_server
+===============
+
+Document Path:          /
+Document Length:        552 bytes
+
+Concurrency Level:      20
+Time taken for tests:   73.368 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      824000 bytes
+HTML transferred:       552000 bytes
+Requests per second:    13.63 [#/sec] (mean)
+Time per request:       1467.360 [ms] (mean)
+Time per request:       73.368 [ms] (mean, across all concurrent requests)
+Transfer rate:          10.97 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:   205 1454 110.5   1468    1593
+Waiting:      205 1454 110.5   1468    1593
+Total:        206 1454 110.5   1468    1594
+
+Percentage of the requests served within a certain time (ms)
+  50%   1468
+  66%   1485
+  75%   1496
+  80%   1504
+  90%   1521
+  95%   1533
+  98%   1542
+  99%   1546
+ 100%   1594 (longest request)
+
+
+
+Document Path:          /info/
+Document Length:        202 bytes
+
+Concurrency Level:      20
+Time taken for tests:   4.844 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      339000 bytes
+HTML transferred:       202000 bytes
+Requests per second:    206.45 [#/sec] (mean)
+Time per request:       96.874 [ms] (mean)
+Time per request:       4.844 [ms] (mean, across all concurrent requests)
+Transfer rate:          68.35 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    4  63.1      0    1000
+Processing:    11   92  14.6     91     279
+Waiting:       11   92  14.6     91     279
+Total:         12   96  65.2     91    1105
+
+Percentage of the requests served within a certain time (ms)
+  50%     91
+  66%     95
+  75%     98
+  80%     99
+  90%    106
+  95%    116
+  98%    121
+  99%    126
+ 100%   1105 (longest request)
+
+
+
+Document Path:          /lorem/
+Document Length:        1958 bytes
+
+Concurrency Level:      20
+Time taken for tests:   4.575 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      2095000 bytes
+HTML transferred:       1958000 bytes
+Requests per second:    218.58 [#/sec] (mean)
+Time per request:       91.499 [ms] (mean)
+Time per request:       4.575 [ms] (mean, across all concurrent requests)
+Transfer rate:          447.20 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:    12   91  11.7     88     120
+Waiting:       12   90  11.7     88     120
+Total:         13   91  11.7     88     120
+
+Percentage of the requests served within a certain time (ms)
+  50%     88
+  66%     93
+  75%     96
+  80%    100
+  90%    108
+  95%    112
+  98%    116
+  99%    119
+ 100%    120 (longest request)
