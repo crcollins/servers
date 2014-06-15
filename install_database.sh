@@ -23,7 +23,7 @@ sudo -u postgres psql -U postgres -d postgres -c "alter user vagrant with passwo
 
 if [ "$1" == "master" ];
     then
-    sudo -u postgres psql -c "CREATE USER rep REPLICATION LOGIN CONNECTION LIMIT 1 ENCRYPTED PASSWORD 'vagrant';"
+    sudo -u postgres psql -c "CREATE USER rep REPLICATION LOGIN ENCRYPTED PASSWORD 'vagrant';"
     sudo -u postgres -H sh -c 'ssh-keygen -b 2048 -f /var/lib/postgresql/.ssh/id_rsa -t rsa -q -N ""'
     sudo -u postgres -H sh -c 'echo "StrictHostKeyChecking no\n" >> /var/lib/postgresql/.ssh/config'
     sudo cp /var/lib/postgresql/.ssh/id_rsa.pub /vagrant
