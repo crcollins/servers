@@ -115,7 +115,7 @@ master_slave (SLAVES=1 APPS=2)
     /lorem/     296.77
 
 
-master_slave (SLAVES=2 APPS=3)
+master_slave (SLAVES=3 APPS=4)
 ------------------------------
 
     Path        Requests per second (mean)
