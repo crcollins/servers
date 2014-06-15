@@ -1,7 +1,6 @@
 Servers
 =======
-A collection of common server setups as described by [this article](https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application).
-
+A collection of common server setups as described by [this article](https://www.digitalocean.com/community/tutorials/5-common-server-setups-for-your-web-application). All of them use vagrant to setup all of them VMs and their respective connections. Nothing fancy is done to setup each individual VM (no use of Chef, Ansible, Puppet, and etc.). Instead, each one is setup using different shell scripts (for better or worse).
 
 
 Usage
@@ -18,7 +17,7 @@ This is the most basic form of setup. It is nginx + postgres + django all on one
 
 
 database_server
-----------
+---------------
 This is a two server setup. The first server has nginx + django on it, and the second server is a dedicated database server with postgres.
 
     $ vagrant up
