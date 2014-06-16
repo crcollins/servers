@@ -6,13 +6,19 @@ sudo apt-get update
 sudo apt-get install -y varnish
 
 
-sudo tee /etc/varnish/default.vcl <<EOF
-backend default {
-  .host = "192.168.2.$1";
-  .port = "80";
+for i in `seq $1 $2`; do echo "backend app$i { .host = \"192.168.2.$i\"; }" >> /etc/varnish/default.vcl; done
+
+echo "director default_director round-robin {" >> /etc/varnish/default.vcl
+
+for i in `seq $1 $2`; do echo "  { .backend = app$i; }" >> /etc/varnish/default.vcl; done
+
+
+sudo tee -a /etc/varnish/default.vcl <<EOF
 }
 
 sub vcl_recv {
+  set req.backend = default_director;
+
   # unless sessionid is in the request, don't pass ANY cookies (referral_source, utm, etc)
   if (req.request == "GET" && (req.url ~ "^/static" || req.url ~ "^/media" || req.http.cookie !~ "sessionid")) {
     remove req.http.Cookie;
