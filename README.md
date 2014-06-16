@@ -122,3 +122,15 @@ master_slave (SLAVES=3 APPS=4)
     /           22.36
     /info/      396.68
     /lorem/     384.37
+
+
+
+full (SLAVES=1 APPS=2)
+----------------------
+
+    Path        Requests per second (mean)
+    /           20.06
+    /info/      662.74
+    /lorem/     562.41
+
+
