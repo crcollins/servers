@@ -37,7 +37,7 @@ http {
     upstream myapp1 {
 EOF
 
-for i in `seq 101 $1`; do echo "        server 192.168.2.$i;" >> /etc/nginx/nginx.conf; done
+for i in `seq $1 $2`; do echo "        server 192.168.2.$i;" >> /etc/nginx/nginx.conf; done
 
 cat >> /etc/nginx/nginx.conf <<\EOF
     }

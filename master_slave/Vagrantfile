@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     load.vm.box = "precise32"
     load.vm.network :private_network, ip: "192.168.2.100"
     load.vm.network :forwarded_port, host: 4567, guest: 80
-    load.vm.provision :shell, :path => "../install_load.sh", :args => "'%d'" % (numApps+100)
+    load.vm.provision :shell, :path => "../install_load.sh", :args => ["101", (numApps+100).to_s]
   end
 
   config.vm.define "master" do |master|
