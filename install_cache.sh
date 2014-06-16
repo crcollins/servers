@@ -8,7 +8,7 @@ sudo apt-get install -y varnish
 
 sudo tee /etc/varnish/default.vcl <<EOF
 backend default {
-  .host = "192.168.2.101";
+  .host = "192.168.2.$1";
   .port = "80";
 }
 

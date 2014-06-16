@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     cache.vm.box = "precise32"
     cache.vm.network :private_network, ip: "192.168.2.99"
     cache.vm.network :forwarded_port, host: 4567, guest: 80
-    cache.vm.provision :shell, :path => "../install_cache.sh"
+    cache.vm.provision :shell, :path => "../install_cache.sh", :args => "101"
   end
 
   config.vm.define "db" do |db|
