@@ -1,0 +1,94 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+$setup_script = <<SCRIPT
+#!/usr/bin/env bash
+
+cp -r /tmp/base_project .
+cd base_project
+
+cat >> base_project/settings.py <<EOF
+DATABASES['default'] = {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'mydb',
+    'USER': 'vagrant',
+    'PASSWORD': 'vagrant',
+    'HOST': '192.168.2.200',
+    'PORT': '',
+}
+EOF
+
+for i in `seq 201 $1`; do
+cat >> base_project/settings.py <<EOF
+DATABASES['slave$i'] = {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'mydb',
+    'USER': 'vagrant',
+    'PASSWORD': 'vagrant',
+    'HOST': '192.168.2.$1',
+    'PORT': '',
+}
+EOF
+done
+
+
+source install.sh
+SCRIPT
+
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  numApps = ENV["APPS"].to_i
+  numSlaves = ENV["SLAVES"].to_i
+
+  config.vm.define "load" do |load|
+    load.vm.box = "precise32"
+    load.vm.network :private_network, ip: "192.168.2.100"
+    load.vm.network :forwarded_port, host: 4567, guest: 80
+    load.vm.provision :shell, :path => "../install_load.sh", :args => ["51", (50+numApps).to_s]
+  end
+
+  config.vm.define "master" do |master|
+    master.vm.box = "precise32"
+    master.vm.network :private_network, ip: "192.168.2.200"
+    master.vm.hostname = "master"
+    master.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => ["master", numSlaves.to_s]
+  end
+
+  1.upto(numSlaves) do |num|
+    hostname = "slave" + num.to_s
+    slaveName = hostname.to_sym
+    val = num + 200
+    config.vm.define slaveName do |slave|
+      slave.vm.box = "precise32"
+      slave.vm.network :private_network, ip: "192.168.2." + val.to_s
+      slave.vm.hostname = hostname
+      slave.vm.provision :shell, :path => "../install_database.sh", :privileged => false, :args => ["slave", numSlaves.to_s]
+    end
+  end
+
+  1.upto(numApps) do |num|
+    hostname = "cache" + num.to_s
+    cacheName = hostname.to_sym
+    val = num + 50
+    config.vm.define cacheName do |cache|
+      cache.vm.box = "precise32"
+      cache.vm.network :private_network, ip: "192.168.2." + val.to_s
+      cache.vm.provision :shell, :path => "../install_cache.sh", :args => "'%d'" % (val+50)
+    end
+  end
+
+  1.upto(numApps) do |num|
+    hostname = "app" + num.to_s
+    nodeName = hostname.to_sym
+    val = num + 100
+    config.vm.define nodeName do |app|
+      app.vm.box = "precise32"
+      app.vm.network :private_network, ip: "192.168.2." + val.to_s
+      app.vm.hostname = hostname
+      app.vm.synced_folder "../base_project", "/tmp/base_project"
+      app.vm.provision :shell, :inline => $setup_script, :privileged => false, :args => "'%d'" % (numSlaves+200)
+    end
+  end
+end
