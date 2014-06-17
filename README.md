@@ -54,6 +54,15 @@ All of these tests were done using `ab` for 1000 requests (20 concurrent). Speci
     $ ab -n 1000 -c 20 http://127.0.0.1:4567$URL
     # Where $URL is one of /, /info/, or /lorem/
 
+This can also be done all at once with the following. Where settings is the correct setup variables.
+
+    $ export $SETTINGS
+    $ vagrant up                                   &&\
+      ab -n 1000 -c 20 http://127.0.0.1:4567/      &&\
+      ab -n 1000 -c 20 http://127.0.0.1:4567/info/ &&\
+      ab -n 1000 -c 20 http://127.0.0.1:4567/lorem &&\
+      destroy -f
+
 NOTE: These were all VMs running on the same machine so take this all with a grain of salt. Also, the errors listed in master_slave/results.txt are not actual errors, but rather side effects of [this bug](https://issues.apache.org/bugzilla/show_bug.cgi?id=42040).
 
 
